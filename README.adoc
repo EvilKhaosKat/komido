@@ -1,5 +1,8 @@
 = komido
 
+== Usage
+- `komido init`: init application
+- `komido prepareServer`: prepare server by installing necessary packages
 
 == Todo
 * Use `Digital Ocean` API to create droplet for server
