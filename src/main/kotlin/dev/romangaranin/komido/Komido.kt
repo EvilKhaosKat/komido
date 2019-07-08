@@ -7,9 +7,9 @@ import java.nio.file.Files
 import java.nio.file.Paths
 import java.util.concurrent.TimeUnit
 
-data class Komido(val sshConnectString: String) {
+class Komido(var sshConnectionString: String) {
     fun prepareServer() {
-        val result = "ssh $sshConnectString apt -y update && apt -y install openjdk-11-jre".runCommand()
+        val result = "ssh $sshConnectionString apt -y update && apt -y install openjdk-11-jre".runCommand()
         println(result)
     }
 
@@ -22,9 +22,13 @@ data class Komido(val sshConnectString: String) {
         File(path.toUri()).writeText(stateJson)
     }
 
+    override fun toString(): String {
+        return "Komido(sshConnectionString='$sshConnectionString')"
+    }
+
     companion object {
         fun loadState(stateFilePath: String = "./komido.json"): Komido {
-            if (Files.notExists(Paths.get(stateFilePath))) {
+            if (!stateExists(stateFilePath)) {
                 throw RuntimeException("State file $stateFilePath not exists")
             }
 
@@ -33,6 +37,10 @@ data class Komido(val sshConnectString: String) {
             val result = Gson().fromJson(stateJson, Komido::class.java)
 
             return result ?: throw RuntimeException("state wasn't parsed")
+        }
+
+        fun stateExists(stateFilePath: String = "./komido.json"): Boolean {
+            return Files.exists(Paths.get(stateFilePath))
         }
     }
 }
