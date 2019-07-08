@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 
-class State(val sourceDirPath: String) {
+class ServerState(val sourceDirPath: String) {
     fun packToZip(statesDirPath: String) {
         val statesPath = Paths.get(statesDirPath)
         if (Files.notExists(statesPath)) {

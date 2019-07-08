@@ -5,8 +5,9 @@
  */
 
 plugins {
+    val kotlinVersion = "1.3.40"
     // Apply the Kotlin JVM plugin to add support for Kotlin on the JVM.
-    id("org.jetbrains.kotlin.jvm").version("1.3.31")
+    id("org.jetbrains.kotlin.jvm") version kotlinVersion
 
     // Apply the application plugin to add support for building a CLI application.
     application
@@ -16,11 +17,14 @@ repositories {
     // Use jcenter for resolving dependencies.
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
+
 }
 
 dependencies {
     // Use the Kotlin JDK 8 standard library.
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+
+    implementation("com.google.code.gson:gson:2.8.2")
 
     // Use the Kotlin test library.
     testImplementation("org.jetbrains.kotlin:kotlin-test")
