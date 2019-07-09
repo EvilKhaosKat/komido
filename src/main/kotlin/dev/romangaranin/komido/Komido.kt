@@ -8,7 +8,7 @@ import java.nio.file.Path
 import java.nio.file.Paths
 import java.util.concurrent.TimeUnit
 
-private const val COMIDO_STATE_FILENAME = "./komido.json"
+private const val KOMIDO_STATE_FILENAME = "./komido.json"
 
 class Komido(var sshConnectionString: String,
              var statesDirPath: String = "./states",
@@ -36,7 +36,7 @@ class Komido(var sshConnectionString: String,
         deleteBackupDir(backupPath)
     }
 
-    fun saveState(stateFilePath: String = COMIDO_STATE_FILENAME) {
+    fun saveState(stateFilePath: String = KOMIDO_STATE_FILENAME) {
         var path = Paths.get(stateFilePath)
         Files.deleteIfExists(path)
         path = Files.createFile(path)
@@ -50,7 +50,7 @@ class Komido(var sshConnectionString: String,
     }
 
     companion object {
-        fun loadState(stateFilePath: String = COMIDO_STATE_FILENAME): Komido {
+        fun loadState(stateFilePath: String = KOMIDO_STATE_FILENAME): Komido {
             if (!stateExists(stateFilePath)) {
                 throw RuntimeException("State file $stateFilePath does not exist")
             }
@@ -62,7 +62,7 @@ class Komido(var sshConnectionString: String,
             return result ?: throw RuntimeException("state wasn't parsed")
         }
 
-        fun stateExists(stateFilePath: String = COMIDO_STATE_FILENAME): Boolean {
+        fun stateExists(stateFilePath: String = KOMIDO_STATE_FILENAME): Boolean {
             return Files.exists(Paths.get(stateFilePath))
         }
 
