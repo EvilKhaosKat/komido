@@ -16,10 +16,9 @@ class ServerState(val sourceDirPath: String) {
         }
 
         val zipFilePath = getZipFilePath(statesDirPath)
-        println("zipFilePath = ${zipFilePath}")
+        println("zip file path = ${zipFilePath}")
         File(zipFilePath).let { if (it.exists()) it.delete() }
 
-        if (1==1) return
         val zipFile = Files.createFile(Paths.get(zipFilePath))
 
         ZipOutputStream(Files.newOutputStream(zipFile)).use { stream ->
@@ -40,7 +39,6 @@ class ServerState(val sourceDirPath: String) {
         protected fun getZipFilePath(statesDirPath: String): String {
             val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd|HH-mm-ss")
             return "$statesDirPath/${LocalDateTime.now().format(formatter)}.zip"
-
         }
     }
 }
