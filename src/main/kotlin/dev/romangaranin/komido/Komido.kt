@@ -32,7 +32,6 @@ class Komido(var sshConnectionString: String,
         val state = ServerState(backupPath.toString())
         state.packToZip(statesDirPath)
 
-        println("Deleting backup dir")
         deleteBackupDir(backupPath)
     }
 
