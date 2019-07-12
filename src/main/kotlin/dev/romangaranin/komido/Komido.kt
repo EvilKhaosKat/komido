@@ -71,6 +71,8 @@ class Komido(var sshConnectionString: String,
 
         private fun recreateBackupDir(statesDirPath: String): Path {
             var backupPath = Paths.get(getBackupPath(statesDirPath))
+
+            backupPath.toFile().mkdirs()
             deleteBackupDir(backupPath)
 
             backupPath = Files.createDirectory(backupPath)
