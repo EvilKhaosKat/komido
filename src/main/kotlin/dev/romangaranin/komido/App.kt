@@ -2,6 +2,7 @@ package dev.romangaranin.komido
 
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.subcommands
+import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.prompt
 
@@ -14,7 +15,7 @@ class Init : CliktCommand(help = "Init application by providing SSH connection s
     val sshConnectionString: String
             by option(help = "SSH connection string").prompt("SSH connection string")
     val statesDirPath: String
-            by option(help = "Directory for keeping world states").prompt("Directory for world states")
+            by option(help = "Directory for keeping world states").default("./states")
 
     override fun run() {
         val komido = Komido(sshConnectionString, statesDirPath)
