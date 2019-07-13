@@ -16,19 +16,19 @@ class KomidoCommand : CliktCommand(name = "komido") {
 }
 
 class Init : CliktCommand(help = "Init application by providing SSH connection string (alias or username@hostname) " +
-        "and folder for world states") {
+        "and optionally folder for backups, and latest actual backup") {
     private val sshConnectionString: String
             by option(help = "SSH connection string").prompt("SSH connection string")
-    private val statesDirPath: String?
-            by option(help = "Directory for keeping world states")
+    private val backupDirPath: String?
+            by option(help = "Directory for keeping server backups")
     private val latestBackupPath: String?
             by option(help = "Path to latest backup zip file")
 
     override fun run() {
         val komido = Komido(sshConnectionString)
 
-        if (statesDirPath != null) {
-            komido.statesDirPath = statesDirPath as String
+        if (backupDirPath != null) {
+            komido.backupDirPath = backupDirPath as String
         }
         if (latestBackupPath != null) {
             komido.latestBackupPath = latestBackupPath as String

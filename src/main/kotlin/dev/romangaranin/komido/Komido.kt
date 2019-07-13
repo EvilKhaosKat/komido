@@ -14,7 +14,7 @@ private const val KOMIDO_STATE_FILENAME = "./komido.json"
 
 //TODO split class - separate commands to separate handlers
 class Komido(var sshConnectionString: String,
-             var statesDirPath: String = "./states",
+             var backupDirPath: String = "./backup",
              var minecraftServerFolder: String = "/home/minecraft",
              var latestBackupPath: String = "") {
     /**
@@ -71,7 +71,7 @@ class Komido(var sshConnectionString: String,
      * Create backup of current server/minecraft state.
      */
     fun makeBackup() {
-        val backupPath = recreateBackupDir(statesDirPath)
+        val backupPath = recreateBackupDir(backupDirPath)
         println("backupPath = $backupPath")
 
         val command = "scp -r $sshConnectionString:$minecraftServerFolder $backupPath"
@@ -82,7 +82,7 @@ class Komido(var sshConnectionString: String,
         println(result)
 
         val state = ServerState(backupPath.toString())
-        latestBackupPath = state.packToZip(statesDirPath)
+        latestBackupPath = state.packToZip(backupDirPath)
         saveAppConfig()
 
         deleteBackupDir(backupPath)
@@ -103,7 +103,7 @@ class Komido(var sshConnectionString: String,
 
     override fun toString(): String {
         return "Komido(sshConnectionString='$sshConnectionString', " +
-                "statesDirPath='$statesDirPath', " +
+                "backupDirPath='$backupDirPath', " +
                 "minecraftServerFolder='$minecraftServerFolder', " +
                 "latestBackupPath='$latestBackupPath')"
     }
