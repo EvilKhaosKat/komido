@@ -14,7 +14,8 @@ class Komido(var sshConnectionString: String,
              var statesDirPath: String = "./states",
              var minecraftFolder: String = "/home/minecraft") {
     fun prepareServer() {
-        val result = "ssh $sshConnectionString apt -y update && apt -y install openjdk-11-jre".runCommand()
+        val result = ("ssh -o BatchMode=yes -o StrictHostKeyChecking=no $sshConnectionString " +
+                "apt -y update && apt -y install openjdk-11-jre").runCommand()
         println(result)
     }
 
