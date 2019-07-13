@@ -9,15 +9,15 @@
 == Todo
 * Use `Digital Ocean` API to create droplet for server
 ** Save droplet metainfo
-* ☑ Prepare `DO` droplet
-.. ☑ Connect using `ssh`
-.. ☑ Install `openjdk`
-* ☑ Upload server files
-.. ☑ server jar and configs
-.. ☑ world state
+* ✅ Prepare `DO` droplet
+** ✅ Connect using `ssh`
+** ✅ Install `openjdk`
+* ✅ Upload server files
+** ✅ server jar and configs
+** ✅ world state
 * Launch/stop server
-* ☑ Make backup
-.. ☑ Download world state
-.. ☑ Make archive
-.. ☑ Save meta-info (date, version, etc.)
+* ✅ Make backup
+** ✅ Download world state
+** ✅ Make archive
+** ✅ Save meta-info (date, version, etc.)
 * Upgrade server version
