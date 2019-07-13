@@ -9,7 +9,7 @@ import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 
 class ServerState(val sourceDirPath: String) {
-    fun packToZip(statesDirPath: String) {
+    fun packToZip(statesDirPath: String) : String {
         val statesPath = Paths.get(statesDirPath)
         if (Files.notExists(statesPath)) {
             Files.createDirectory(statesPath)
@@ -33,6 +33,8 @@ class ServerState(val sourceDirPath: String) {
                         stream.closeEntry()
                     }
         }
+
+        return zipFilePath
     }
 
     companion object {
