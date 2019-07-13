@@ -12,16 +12,23 @@ import java.util.concurrent.TimeUnit
 
 private const val KOMIDO_STATE_FILENAME = "./komido.json"
 
+//TODO split class - separate commands to separate handlers
 class Komido(var sshConnectionString: String,
              var statesDirPath: String = "./states",
              var minecraftServerFolder: String = "/home/minecraft",
              var latestBackupPath: String = "") {
+    /**
+     * Install required packages on server.
+     */
     fun prepareServer() {
         val result = ("ssh -o BatchMode=yes -o StrictHostKeyChecking=no $sshConnectionString " +
                 "apt -y update && apt -y install openjdk-11-jre").runCommand()
         println(result)
     }
 
+    /**
+     * Upload most recent minecraft state backup to server.
+     */
     fun uploadState() {
         if (latestBackupPath == "") {
             println("Error: can't upload server since latestBackupPath is unknown. " +
@@ -60,6 +67,9 @@ class Komido(var sshConnectionString: String,
         return uploadCommand.runCommand()
     }
 
+    /**
+     * Create backup of current server/minecraft state.
+     */
     fun makeBackup() {
         val backupPath = recreateBackupDir(statesDirPath)
         println("backupPath = $backupPath")
@@ -73,11 +83,15 @@ class Komido(var sshConnectionString: String,
 
         val state = ServerState(backupPath.toString())
         latestBackupPath = state.packToZip(statesDirPath)
+        saveAppConfig()
 
         deleteBackupDir(backupPath)
     }
 
-    fun saveState(stateFilePath: String = KOMIDO_STATE_FILENAME) {
+    /**
+     * Save current app config parameters.
+     */
+    fun saveAppConfig(stateFilePath: String = KOMIDO_STATE_FILENAME) {
         var path = Paths.get(stateFilePath)
         Files.deleteIfExists(path)
         path = Files.createFile(path)

@@ -5,6 +5,12 @@ import com.github.ajalt.clikt.core.subcommands
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.prompt
 
+fun main(args: Array<String>) {
+    KomidoCommand()
+            .subcommands(Init(), PrepareServer(), UploadState(), MakeBackup())
+            .main(args)
+}
+
 class KomidoCommand : CliktCommand(name = "komido") {
     override fun run() = Unit
 }
@@ -28,7 +34,7 @@ class Init : CliktCommand(help = "Init application by providing SSH connection s
             komido.latestBackupPath = latestBackupPath as String
         }
 
-        komido.saveState()
+        komido.saveAppConfig()
         echo("Komido state saved")
     }
 }
@@ -61,10 +67,4 @@ class MakeBackup : CliktCommand(help = "Make backup of current server state", na
         komido.makeBackup()
         echo("Done")
     }
-}
-
-fun main(args: Array<String>) {
-    KomidoCommand()
-            .subcommands(Init(), PrepareServer(), UploadState(), MakeBackup())
-            .main(args)
 }
