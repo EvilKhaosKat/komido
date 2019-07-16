@@ -7,7 +7,7 @@ import com.github.ajalt.clikt.parameters.options.prompt
 
 fun main(args: Array<String>) {
     KomidoCommand()
-            .subcommands(Init(), PrepareServer(), UploadState(), MakeBackup())
+            .subcommands(Init(), UpdateSshConnection(), PrepareServer(), UploadState(), MakeBackup())
             .main(args)
 }
 
@@ -33,6 +33,20 @@ class Init : CliktCommand(help = "Init application by providing SSH connection s
         if (latestBackupPath != null) {
             komido.latestBackupPath = latestBackupPath as String
         }
+
+        komido.saveAppConfig()
+        echo("Komido state saved")
+    }
+}
+
+class UpdateSshConnection : CliktCommand(help = "Updates SSH connection string (alias or username@hostname)",
+        name = "updateSshConnection") {
+    private val sshConnectionString: String
+            by option(help = "SSH connection string").prompt("SSH connection string")
+
+    override fun run() {
+        val komido = Komido(sshConnectionString)
+        komido.sshConnectionString = sshConnectionString
 
         komido.saveAppConfig()
         echo("Komido state saved")

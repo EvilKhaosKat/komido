@@ -22,7 +22,7 @@ class Komido(var sshConnectionString: String,
      */
     fun prepareServer() {
         val result = ("ssh -o BatchMode=yes -o StrictHostKeyChecking=no $sshConnectionString " +
-                "apt -y update && apt -y install openjdk-11-jre").runCommand()
+                "apt -y update && apt -y install openjdk-11-jre unzip").runCommand()
         println(result)
     }
 
