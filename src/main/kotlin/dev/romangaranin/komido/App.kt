@@ -45,7 +45,7 @@ class UpdateSshConnection : CliktCommand(help = "Updates SSH connection string (
             by option(help = "SSH connection string").prompt("SSH connection string")
 
     override fun run() {
-        val komido = Komido(sshConnectionString)
+        val komido = Komido.loadState()
         komido.sshConnectionString = sshConnectionString
 
         komido.saveAppConfig()
