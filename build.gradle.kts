@@ -8,6 +8,7 @@ plugins {
     val kotlinVersion = "1.3.40"
     // Apply the Kotlin JVM plugin to add support for Kotlin on the JVM.
     id("org.jetbrains.kotlin.jvm") version kotlinVersion
+    id("com.github.johnrengelman.shadow") version "5.1.0"
 
     // Apply the application plugin to add support for building a CLI application.
     application
